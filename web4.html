@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"></head>
+    <link rel="stylesheet" type="text/css" href="css.css">
+<body>
+    <div class="row">
+        <div class="col-sm-3" align="center">
+            <h1 align="center">Задание 4.1</h1>
+            <span>Введите радиус круга<span><br><br>
+                <input type="number" id="r">
+                        <br><br><button id="result1">Результат</button><br><br>
+                        <span id="result_field1"></span>
+                        <script>
+
+                            // task 1
+
+                            function S(){
+                                let r = Number(document.getElementById('r').value);
+                                result = Math.PI * r * r;
+                                document.getElementById('result_field1').innerHTML = result;
+                            }
+                            document.getElementById('result1').addEventListener('click', S);
+                        </script>
+        </div>
+        <div class="col-sm-3" align="center">
+            <h1 align="center">Задание 4.2</h1>
+            <h5>Найти сумму ряда Х+X3/3+Х5/5+Х7/7+... суммирование прекратить, когда очередное слагаемое станет меньше 0.005 по абсолютной величине.  Примечание: Х меньше 1.
+            </h5>
+            <input type="number" id="x"><br>
+            <br><button id="result2">Результат</button><br><br>
+            <span id="result_field2"></span>
+
+            <script>
+
+                // task 2
+
+                function NumberSequance(){
+                    let x = document.getElementById('x').value;
+                    let sum = Number(x);
+                    let b = 1;
+                    if (x < 1 && x > -1){
+                        for (let i = 1; Math.abs(b) >= 0.005; i++){
+                            b = Math.pow(x, i) / i;
+                            sum += b;
+                            i++;
+                        }
+                        document.getElementById('result_field2').innerHTML = sum;
+                    }
+                    else{
+                        document.getElementById('result_field2').innerHTML = "X должен быть меньше 1";
+                    }
+                }
+                document.getElementById('result2').addEventListener('click', NumberSequance);
+            </script>
+        </div>
+        <div class="col-sm-3" align="center" style="height: 100%;">
+            <h1 align="center">Задание 4.3</h1>
+            <h5>Выяснить, является ли заданная квадратная матрица «магическим квадратом».</h5>
+            <div>
+                <input class="value" type="number" value="2" size=2>
+                <input class="value" type="number" value="9" size=2>
+                <input class="value" type="number" value="4" size=2>
+            </div><br>
+            <div>
+                <input class="value" type="number" value="7" size=2>
+                <input class="value" type="number" value="5" size=2>
+                <input class="value" type="number" value="3" size=2>
+            </div><br>
+            <div>
+                <input class="value" type="number" value="6" size=2 >
+                <input class="value" type="number" value="1" size=2>
+                <input class="value" type="number" value="8" size=2>
+            </div><br>
+            <input type="button" value="Узнать" onclick="Check()"><br><br>
+             <h4>
+                <div id="table1"></div>
+            </h4>
+            <script>
+
+                // task 3
+
+                function Check() {
+                    var data = document.getElementsByClassName("value");
+                    var sum = 0;
+                    for (var i = 0; i < data.length; i++) {
+                        sum += +data[i].value;
+                    }
+                    if (15 == (sum / 3)) {
+                        document.getElementById("table1").innerHTML = 'Это магический квадрат!';
+                    }
+                    else {
+                        document.getElementById("table1").innerHTML = 'Это не магический квадрат :(';
+                    }
+                }
+            </script>
+        </div>
+        <div class="col-sm-3">
+            <h1 align="center">Задание 4.4</h1>
+            <div class="col-sm-6">
+                <h5 style="width:15rem;">Даны числа a1..a(n*n),
+                    получить квадратную матрицу
+                    порядка n, элементами которой
+                    являются числа a1..a(n*n),
+                    расположенные в ней по схеме:</h5>
+            </div>
+            <div class="col-sm-6">
+                <img src="Снимок экрана 2020-05-17 в 12.53.29.png" width="180px" align="center">
+            </div>
+            <span>Введите размерность массива:</span>
+            <input type="number" style="width: 2rem;" id="n" min="2" value="3"><br><br>
+            <span>Введите диапозон чисел:</span>
+            <span><input style="width: 2rem" type="number" id="min" value="1"> - <input type="number" style="width: 2rem;"id="max" value="5"></span>
+            <button class="generate">Генерация</button><br><br>
+            <button class="sort">Вывести</button><br><br>
+            <h4>
+                <div id="table2"></div>
+            </h4>
+            <script>
+
+                // task 4
+
+                var generate = document.querySelector('.generate');
+                var sort = document.querySelector('.sort');
+                var array = [];
+                generate.onclick = function () {
+                    let min = Number(document.getElementById('min').value);
+                    let max = Number(document.getElementById('max').value);  
+                    var n = Number(document.getElementById('n').value);
+                    array = getArray(n, min, max);
+                    alert(array);
+                    let html = "<table>";
+                    for (let i = 0; i < n; i++){
+                        html += "<tr>";
+                        for (let j = i*n; j < i*n + n; j++){
+                            html += "<td>" + array[j] + '&nbsp&nbsp' + "</td>";
+                        }
+                        html += "</tr>";
+                    }
+                    html += "</table>";
+                    document.getElementById('table2').innerHTML = html;
+                }
+                sort.onclick = function () {
+                    getResultArray(array)
+                }
+
+                // Random integer
+
+                function getRandomInt(min, max) {
+                    return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+                }
+
+                // Generate n-sized array with random integers
+
+                function getArray(n, min, max) {
+                    let array = [];
+                    for (let i = 0; i < n*n; i++) {
+                        array[i] = getRandomInt(min, max);
+                    }
+                    return array;
+                }
+
+                // Output resulted array
+
+                function getResultArray(array) {
+                    let sortedArray = array.sort((a, b) => b - a);
+                    let html = '<table>';
+                    var n = Number(document.getElementById('n').value);
+                    if (n % 2 == 0){
+                        var flag = 0;
+                    }
+                    else if (n % 2 != 0){
+                        var flag = 1;
+                    } 
+                    for (let i = 1; i <= n; i++){                        
+                        html += '<tr>';     
+                        if (flag == 0){                   
+                            for (let j = (i * n) - 1; j >= (i * n) - n; j--){
+                                html += '<td>' + sortedArray[j] + '&nbsp&nbsp' + '</td>';
+                            }
+                            flag++;
+                        }
+                        else{
+                            for (let j = (i - 1) * n; j < (i - 1) * n + n; j++){
+                                html += '<td>' + sortedArray[j] + '&nbsp&nbsp' + '</td>';
+                            }
+                            flag--;
+                        }
+                        html += '</tr>';
+                    }
+                    html += '</table>';
+                    document.getElementById('table2').innerHTML = html;
+                }
+                </script>
+            </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
